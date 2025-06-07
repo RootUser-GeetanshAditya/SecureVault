@@ -28,7 +28,6 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          cp blog_storage/index.html ./index.html  # move to root if needed
           git add index.html
           git commit -m "Auto: update index.html [skip ci]" || echo "No changes to commit"
           git push
