@@ -30,4 +30,4 @@ jobs:
           git config user.email "actions@github.com"
           git add index.html
           git commit -m "Auto: update index.html [skip ci]" || echo "No changes to commit"
-          git push
+          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }} HEAD:main
