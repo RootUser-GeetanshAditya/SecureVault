@@ -28,12 +28,13 @@ def get_directory_structure(path):
                     'modified': get_modification_time(item_path),
                     'children': get_directory_structure(item_path)  # Recursively get subdirectories
                 }
-            else:
+            elif item.endswith('.html') or item.endswith('.txt'):
                 structure[item] = {
                     'type': 'file',
                     'size': os.path.getsize(item_path),
                     'modified': get_modification_time(item_path)
                 }
+            
             
             # Ignore non-HTML files for the blog system
             
@@ -637,7 +638,7 @@ def generate_static_index(blog_directory):
                 fileItem.className = `file-item ${{item.type === 'folder' ? 'folder' : 'html-file'}}`;
                 
                 const icon = item.type === 'folder' ? 'fas fa-folder' : 'fas fa-file-code';
-                const typeText = item.type === 'folder' ? 'Directory' : 'HTML Document';
+                const typeText = item.type === 'folder' ? 'Directory' : 'Document';
                 const sizeText = item.size ? formatFileSize(item.size) : '';
                 
                 fileItem.innerHTML = `
