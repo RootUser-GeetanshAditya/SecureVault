@@ -28,12 +28,13 @@ def get_directory_structure(path):
                     'modified': get_modification_time(item_path),
                     'children': get_directory_structure(item_path)  # Recursively get subdirectories
                 }
-            elif item.endswith('.html'):
+            else:
                 structure[item] = {
                     'type': 'file',
                     'size': os.path.getsize(item_path),
                     'modified': get_modification_time(item_path)
                 }
+            
             # Ignore non-HTML files for the blog system
             
     except PermissionError:
