@@ -1,0 +1,65 @@
+# --- Launching New Windows/Panes ---
+# Launch a new Kitty OS window in the current working directory.
+# This will open a completely separate Kitty window.
+map ctrl+shift+enter launch --cwd=current
+
+# Create a new vertical split (pane) in the current Kitty window.
+# This will open a new terminal session alongside the current one within the same OS window.
+# I've used 'vsplit' assuming you want a common split behavior for ctrl+shift+].
+# If you actually want to open a new OS window and then manually arrange it,
+# consider removing this specific binding or re-evaluate your window manager settings.
+map ctrl+shift+] launch --cwd=current --location=vsplit
+
+
+# --- Pane Navigation (Neighboring Windows / Splits) ---
+# Navigate to the pane on the left
+map ctrl+shift+h neighboring_window left
+# Navigate to the pane on the right
+map ctrl+shift+l neighboring_window right
+# Navigate to the pane above
+map ctrl+shift+k neighboring_window up
+# Navigate to the pane below
+map ctrl+shift+j neighboring_window down
+
+
+# --- Pane Resizing ---
+# Make the current pane narrower
+map ctrl+alt+shift+h resize_window narrower
+# Make the current pane wider
+map ctrl+alt+shift+l resize_window wider
+# Make the current pane taller
+map ctrl+alt+shift+k resize_window taller
+# Make the current pane shorter
+map ctrl+alt+shift+j resize_window shorter
+
+
+# --- Pane/Window Management ---
+# Close the current pane (if it's the last pane in a window, it closes the window)
+map ctrl+shift+q close_window
+# Toggle to the 'stack' layout for the current window's panes
+map ctrl+shift+f toggle_layout stack
+# Cycle through all available layouts for the current window's panes
+map ctrl+shift+space toggle_layout all
+
+
+# --- Tab Management ---
+# Create a new tab
+map ctrl+shift+t new_tab
+# Go to the next tab
+map ctrl+shift+right next_tab
+# Go to the previous tab
+map ctrl+shift+left previous_tab
+
+
+# --- Utility ---
+# Command Palette: Kitty doesn't have a built-in "command palette" like some IDEs.
+# You'd typically bind an external program (e.g., fzf, rofi, dmenu) to this key.
+# Example if you have fzf:
+# map ctrl+shift+p launch --stdin-source=@selection --type=overlay --title=command_palette -- zsh -c "printf '%s\n' 'action1' 'action2' | fzf | xargs -r kitty @ launch --stdin-source=@selection"
+# For now, commenting out as it requires a specific external setup.
+# map ctrl+shift+p show_command_palette
+
+# Detach Window: This is typically a feature of a terminal multiplexer like Tmux.
+# Kitty itself doesn't have a "detach" concept as its windows are managed by the OS/WM.
+# If you want session persistence, use Tmux *inside* Kitty.
+# map ctrl+shift+grave detach_window
