@@ -1,5 +1,13 @@
-Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
-Install-Module -Name PSSQLite -Scope CurrentUser -Force
+$nugetProvider = Get-PackageProvider -Name NuGet -ErrorAction SilentlyContinue
+if (-not $nugetProvider -or [version]$nugetProvider.Version -lt [version]"2.8.5.201") {
+    Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Scope CurrentUser
+}
+
+# Ensure PSSQLite Module
+$pssqliteModule = Get-Module -ListAvailable -Name PSSQLite
+if (-not $pssqliteModule) {
+    Install-Module -Name PSSQLite -Scope CurrentUser -Force
+}
 
 Import-Module PSSQLite
 
